@@ -1,18 +1,12 @@
-GSL=$(HOME)/gsl
-
-CC=gcc -std=gnu99 -g
+CC = gcc -std=gnu99 -g
+INCDIR  = .
 OFILES = fisher.o fexact.o
-GSLINC = -I$(GSL)/include
-GSLLIB = -L$(GSL)/lib
-
-all : fisher
-
 
 fisher : $(OFILES)
-	$(CC) -static $(GSLLIB) -o $@ $(OFILES) -lgsl -lgslcblas -lm
+	$(CC) -static -o $@ $(OFILES)  -lgsl -lm
+
 .c.o :
-	$(CC) $(GSLINC) -c -o $@ $<
+	$(CC) -I$(INCDIR) -c -o $@ $<
 
 clean :
 	\rm -f $(OFILES)
-
